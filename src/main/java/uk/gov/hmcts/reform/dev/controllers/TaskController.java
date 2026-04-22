@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import uk.gov.hmcts.reform.dev.controllers.request.CreateTaskRequest;
+import uk.gov.hmcts.reform.dev.controllers.request.UpdateTaskStatusRequest;
 import uk.gov.hmcts.reform.dev.models.Task;
 import uk.gov.hmcts.reform.dev.repositories.TaskRepository;
 

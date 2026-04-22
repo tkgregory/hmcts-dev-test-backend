@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static io.restassured.RestAssured.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-class SampleFunctionalTest {
+class GetTaskFunctionalTest {
     protected static final String CONTENT_TYPE_VALUE = "application/json";
 
     @Value("${TEST_URL:http://localhost:8080}")
@@ -29,11 +29,11 @@ class SampleFunctionalTest {
         Response response = given()
             .contentType(ContentType.JSON)
             .when()
-            .get()
+            .get("/tasks")
             .then()
             .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertTrue(response.asString().startsWith("Welcome"));
+        Assertions.assertTrue(response.asString().contains("Task Title"));
     }
 }
