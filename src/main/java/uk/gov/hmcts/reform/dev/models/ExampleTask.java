@@ -14,17 +14,17 @@ import java.time.LocalDateTime;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "cases")
+@Table(name = "tasks")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class ExampleCase {
+public class ExampleTask {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Integer id;
-    private String caseNumber;
+    private String taskNumber;
     private String title;
     private String description;
     private String status;

@@ -3,26 +3,26 @@ package uk.gov.hmcts.reform.dev.repositories;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import uk.gov.hmcts.reform.dev.models.ExampleCase;
+import uk.gov.hmcts.reform.dev.models.ExampleTask;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class ExampleCaseRepositoryTest {
+class ExampleTaskRepositoryTest {
 
     @Autowired
-    private transient ExampleCaseRepository repository;
+    private transient ExampleTaskRepository repository;
 
     @Test
-    void shouldSaveAndLoadCase() {
-        ExampleCase saved = repository.save(new ExampleCase(
+    void shouldSaveAndLoadTask() {
+        ExampleTask saved = repository.save(new ExampleTask(
             null,
             "ABC12345",
-            "Case Title",
-            "Case Description",
-            "Case Status",
+            "Task Title",
+            "Task Description",
+            "Task Status",
             LocalDateTime.now()
         ));
 

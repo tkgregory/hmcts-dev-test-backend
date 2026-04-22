@@ -13,16 +13,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class CaseControllerTest {
+class TaskControllerTest {
 
     @Autowired
     private transient MockMvc mockMvc;
 
     @Test
-    void shouldGetExampleCaseFromDatabase() throws Exception {
-        mockMvc.perform(get("/get-example-case"))
+    void shouldGetExampleTaskFromDatabase() throws Exception {
+        mockMvc.perform(get("/get-example-task"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.caseNumber", is("ABC12345")))
-            .andExpect(jsonPath("$.title", is("Case Title")));
+            .andExpect(jsonPath("$.taskNumber", is("ABC12345")))
+            .andExpect(jsonPath("$.title", is("Task Title")));
     }
 }
