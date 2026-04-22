@@ -31,10 +31,19 @@ class TaskControllerTest {
     private transient TaskRepository taskRepository;
 
     @Test
-    void shouldGetFirstTaskFromDatabase() throws Exception {
+    void shouldGetAllTasksFromDatabase() throws Exception {
+        taskRepository.save(new Task(
+            null,
+            "Second task",
+            "Another task in the list",
+            TaskStatus.IN_PROGRESS,
+            LocalDateTime.now().plusDays(2)
+        ));
+
         mockMvc.perform(get("/tasks"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.title", is("Task Title")));
+            .andExpect(jsonPath("$[0].title", is("Task Title")))
+            .andExpect(jsonPath("$[1].title", is("Second task")));
     }
 
     @Test

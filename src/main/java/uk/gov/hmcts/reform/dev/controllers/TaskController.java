@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.dev.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,8 @@ import uk.gov.hmcts.reform.dev.controllers.request.CreateTaskRequest;
 import uk.gov.hmcts.reform.dev.controllers.request.UpdateTaskStatusRequest;
 import uk.gov.hmcts.reform.dev.models.Task;
 import uk.gov.hmcts.reform.dev.repositories.TaskRepository;
+
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -26,10 +29,8 @@ public class TaskController {
     }
 
     @GetMapping(value = "/tasks", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task> getExampleTask() {
-        return taskRepository.findFirstByOrderByIdAsc()
-            .map(ResponseEntity::ok)
-            .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<List<Task>> getTasks() {
+        return ResponseEntity.ok(taskRepository.findAll(Sort.by(Sort.Direction.ASC, "id")));
     }
 
     @GetMapping(value = "/tasks/{id}", produces = APPLICATION_JSON_VALUE)

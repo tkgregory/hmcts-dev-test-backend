@@ -14,11 +14,12 @@ import uk.gov.hmcts.reform.dev.models.TaskStatus;
 import uk.gov.hmcts.reform.dev.repositories.TaskRepository;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,13 +36,15 @@ class GetTaskTest {
     @DisplayName("Should return a task upon tasks request with 200 response code")
     @Test
     void getTaskEndpoint() throws Exception {
-        given(taskRepository.findFirstByOrderByIdAsc()).willReturn(Optional.of(new Task(
-            1,
-            "Task Title",
-            "Task Description",
-            TaskStatus.IN_PROGRESS,
-            LocalDateTime.parse("2026-05-01T10:30:00")
-        )));
+        given(taskRepository.findAll(org.springframework.data.domain.Sort.by(ASC, "id"))).willReturn(List.of(
+            new Task(
+                1,
+                "Task Title",
+                "Task Description",
+                TaskStatus.IN_PROGRESS,
+                LocalDateTime.parse("2026-05-01T10:30:00")
+            )
+        ));
 
         MvcResult response = mockMvc.perform(get("/tasks")).andExpect(status().isOk()).andReturn();
 
