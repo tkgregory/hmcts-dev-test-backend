@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.dev.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Sort;
@@ -41,11 +42,7 @@ public class TaskController {
     }
 
     @PostMapping(value = "/tasks", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task> createTask(@RequestBody final CreateTaskRequest request) {
-        if (isBlank(request.title()) || request.status() == null || request.dueDateTime() == null) {
-            return ResponseEntity.badRequest().build();
-        }
-
+    public ResponseEntity<Task> createTask(@Valid @RequestBody final CreateTaskRequest request) {
         Task task = new Task(
             null,
             request.title(),
@@ -60,12 +57,8 @@ public class TaskController {
     @PatchMapping(value = "/tasks/{id}/status", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Task> updateTaskStatus(
         @PathVariable final Integer id,
-        @RequestBody final UpdateTaskStatusRequest request
+        @Valid @RequestBody final UpdateTaskStatusRequest request
     ) {
-        if (request.status() == null) {
-            return ResponseEntity.badRequest().build();
-        }
-
         return taskRepository.findById(id)
             .map(task -> {
                 task.setStatus(request.status());
@@ -82,9 +75,5 @@ public class TaskController {
 
         taskRepository.deleteById(id);
         return ResponseEntity.noContent().build();
-    }
-
-    private boolean isBlank(final String value) {
-        return value == null || value.isBlank();
     }
 }

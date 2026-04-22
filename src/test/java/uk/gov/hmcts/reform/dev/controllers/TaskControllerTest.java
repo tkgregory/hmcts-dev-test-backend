@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import uk.gov.hmcts.reform.dev.models.Task;
 import uk.gov.hmcts.reform.dev.models.TaskStatus;
 import uk.gov.hmcts.reform.dev.repositories.TaskRepository;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class TaskControllerTest {
 
     @Autowired
@@ -48,10 +50,18 @@ class TaskControllerTest {
 
     @Test
     void shouldGetSingleTaskById() throws Exception {
-        mockMvc.perform(get("/tasks/1"))
+        Task task = taskRepository.save(new Task(
+            null,
+            "Single task lookup",
+            "Task for get by id test",
+            TaskStatus.IN_PROGRESS,
+            LocalDateTime.now().plusDays(1)
+        ));
+
+        mockMvc.perform(get("/tasks/" + task.getId()))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id", is(1)))
-            .andExpect(jsonPath("$.title", is("Task Title")));
+            .andExpect(jsonPath("$.id", is(task.getId())))
+            .andExpect(jsonPath("$.title", is("Single task lookup")));
     }
 
     @Test

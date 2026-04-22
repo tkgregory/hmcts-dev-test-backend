@@ -57,6 +57,7 @@ tasks.withType(JavaExec).configureEach {
 
 tasks.withType(Test) {
   useJUnitPlatform()
+  systemProperty 'spring.profiles.active', System.getProperty('spring.profiles.active', 'test-data')
 
   testLogging {
     exceptionFormat = 'full'
