@@ -4,6 +4,8 @@
 
 `./gradlew bootRun`
 
+Warning: the application uses an in-memory H2 database. Data does not persist after the app stops or restarts.
+
 ### Test the app
 
 `./gradlew check` (runs unit, integration, and functional tests)
