@@ -19,14 +19,13 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ExampleTask {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Integer id;
-    private String taskNumber;
     private String title;
     private String description;
     private String status;
-    private LocalDateTime createdDate;
+    private LocalDateTime dueDateTime;
 }

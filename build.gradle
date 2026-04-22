@@ -149,6 +149,10 @@ ext {
 
 ext['snakeyaml.version'] = '2.2'
 
+checkstyle {
+  configFile = file('config/checkstyle/checkstyle.xml')
+}
+
 dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
