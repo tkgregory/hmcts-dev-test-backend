@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import uk.gov.hmcts.reform.dev.models.Task;
+import uk.gov.hmcts.reform.dev.models.TaskStatus;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +22,7 @@ class TaskRepositoryTest {
             null,
             "Task Title",
             "Task Description",
-            "Task Status",
+            TaskStatus.IN_PROGRESS,
             LocalDateTime.now().plusDays(2)
         ));
 

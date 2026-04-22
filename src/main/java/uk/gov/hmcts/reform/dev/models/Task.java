@@ -1,6 +1,8 @@
 package uk.gov.hmcts.reform.dev.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -26,6 +28,7 @@ public class Task {
     private Integer id;
     private String title;
     private String description;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
     private LocalDateTime dueDateTime;
 }
